@@ -24,7 +24,7 @@ namespace pc3teoria
 
         public IConfiguration Configuration { get; }
 
-    
+
 
 
 
@@ -35,7 +35,7 @@ namespace pc3teoria
             services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseNpgsql(
                      Configuration.GetConnectionString("PostgressConnection")));
-                     
+
             services.AddControllersWithViews();
         }
 
