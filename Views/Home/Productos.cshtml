@@ -12,15 +12,15 @@
 
 
     </tr>
-    @foreach (var item in Model)
+    @foreach (var p in Model)
     {
         <tr>
-            <td>@item.id</td>
-            <td>@item.Nombre</td>
-            <td>@item.Precio</td>
-            <td>@item.Foto</td>
+            <td>@p.id</td>
+            <td>@p.Nombre</td>
+            <td>@p.Precio</td>
+            <td>@p.Foto</td>
             <td>
-                @item.Categoria.Nombre
+                @p.Categoria.Nombre
 
 
             </td>
