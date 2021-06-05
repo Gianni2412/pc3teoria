@@ -20,20 +20,22 @@ namespace pc3teoria.Controllers
             _context = context;
         }
 
-        
 
-        public IActionResult Productos(){
+
+        public IActionResult Productos()
+        {
             var productos = _context.Productos.Include(x => x.Categoria).OrderBy(r => r.Nombre).ToList();
             return View(productos);
         }
 
-        public IActionResult NuevoProducto(){
+        public IActionResult NuevoProducto()
+        {
             ViewBag.Categorias = _context.Categorias.ToList().Select(c => new SelectListItem(c.Nombre, c.Id.ToString()));
             return View();
         }
 
-    [HttpPost]
-      public IActionResult NuevoProducto(Producto p) //da igual xd objeto p es libre su escritura
+        [HttpPost]
+        public IActionResult NuevoProducto(Producto p) //da igual xd objeto p es libre su escritura
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +46,7 @@ namespace pc3teoria.Controllers
             return View(p);
         }
 
-         public IActionResult NuevoProductoConfirmacion()
+        public IActionResult NuevoProductoConfirmacion()
         {
             return View();
         }

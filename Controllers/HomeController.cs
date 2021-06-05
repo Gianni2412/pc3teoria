@@ -100,6 +100,28 @@ namespace pc3teoria.Controllers
 
 
 
+        public IActionResult NuevaCategoria()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult NuevaCategoria(Categoria c)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(c);
+                _context.SaveChanges();
+
+                return RedirectToAction("NuevacategoriaConfirmacion");
+            }
+            return View(c);
+        }
+        public ActionResult NuevacategoriaConfirmacion()
+        {
+            return View();
+        }
+
 
 
     }
