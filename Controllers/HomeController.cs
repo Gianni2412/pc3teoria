@@ -25,102 +25,15 @@ namespace pc3teoria.Controllers
 
         public IActionResult Index()
         {
-            return View();
-        }
-
-
-
-        //PRODUCTOS
-        public IActionResult Productos()
-        {
-            var productos = _context.Productos.Include(x => x.Categoria).OrderBy(r => r.Nombre).ToList();
+            var productos = _context.Productos.Include(x => x.Categoria).Where(x => x.FechaRegistro.AddDays(5) >= DateTime.Now).ToList();
             return View(productos);
         }
 
-        public IActionResult NuevoProducto()
-        {
-            ViewBag.Categorias = _context.Categorias.ToList().Select(c => new SelectListItem(c.Nombre, c.Id.ToString()));
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult NuevoProducto(Producto p) //da igual xd objeto p es libre su escritura
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(p);
-                _context.SaveChanges();
-                return RedirectToAction("NuevoProductoConfirmacion");
-            }
-            return View(p);
-        }
-
-        public IActionResult NuevoProductoConfirmacion()
-        {
-            return View();
-        }
-
-
-        /// CONTACTOS
-
-        public IActionResult Contacto()
-        {
-            return View();
-        }
-
-        public IActionResult NuevoContacto()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult NuevoContacto(Usuario u)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(u);
-                _context.SaveChanges();
-
-                return RedirectToAction("ListarContactos");
-            }
-            return View(u);
-        }
-
-        public ActionResult ListarContactos()
-        {
-            var contactos = _context.Usuarios.ToList();
-            return View(contactos);
-        }
-
-
-        public ActionResult ContactoConfirmacion()
-        {
-            return View();
-        }
 
 
 
-        public IActionResult NuevaCategoria()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        public IActionResult NuevaCategoria(Categoria c)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(c);
-                _context.SaveChanges();
 
-                return RedirectToAction("NuevacategoriaConfirmacion");
-            }
-            return View(c);
-        }
-        public ActionResult NuevacategoriaConfirmacion()
-        {
-            return View();
-        }
 
 
 

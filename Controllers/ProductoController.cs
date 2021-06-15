@@ -20,37 +20,30 @@ namespace pc3teoria.Controllers
             _context = context;
         }
 
-
-
-        public IActionResult Productos()
+        public IActionResult Registro()
         {
-            var productos = _context.Productos.Include(x => x.Categoria).OrderBy(r => r.Nombre).ToList();
-            return View(productos);
-        }
 
-        public IActionResult NuevoProducto()
-        {
-            ViewBag.Categorias = _context.Categorias.ToList().Select(c => new SelectListItem(c.Nombre, c.Id.ToString()));
+
+            ViewBag.Categorias = _context.Categorias.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             return View();
         }
 
         [HttpPost]
-        public IActionResult NuevoProducto(Producto p) //da igual xd objeto p es libre su escritura
+        public IActionResult Registro(Producto p)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(p);
+                _context.Productos.Add(p);
                 _context.SaveChanges();
-                return RedirectToAction("NuevoProductoConfirmacion");
+                return RedirectToAction("Index", "Home");
             }
-            return View(p);
-        }
+            else
+            {
+                return View(p);
 
-        public IActionResult NuevoProductoConfirmacion()
-        {
-            return View();
-        }
+            }
 
+        }
 
 
 

@@ -16,7 +16,7 @@ namespace pc3teoria.Data
 
 
         public DbSet<pc3teoria.Models.Categoria> Categorias { get; set; }
-        public DbSet<pc3teoria.Models.Usuario> Usuarios { get; set; }
+
         public DbSet<pc3teoria.Models.Producto> Productos { get; set; }
 
 
