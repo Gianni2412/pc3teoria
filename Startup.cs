@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using pc3teoria.Models;
 using pc3teoria.Data;
-
+using Microsoft.AspNetCore.Identity;
 
 namespace pc3teoria
 {
@@ -32,11 +32,12 @@ namespace pc3teoria
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseNpgsql(
-                     Configuration.GetConnectionString("PostgressConnection")));
-
+            services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("PostgressConnection")));
             services.AddControllersWithViews();
+            services.AddIdentity<IdentityUser, IdentityRole>()
+               .AddEntityFrameworkStores<ApplicationDbContext>()   //nombre del archivo de Data donde se guardan los models    
+                .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +57,7 @@ namespace pc3teoria
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

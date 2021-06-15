@@ -29,6 +29,10 @@ namespace pc3teoria.Controllers
             return View(productos);
         }
 
+        public ActionResult sesioncerrada()
+        {
+            return View();
+        }
 
 
 
