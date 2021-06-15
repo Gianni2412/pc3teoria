@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using pc3teoria.Data;
 using pc3teoria.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace pc3teoria.Controllers
 {
     public class ProductoController : Controller
     {
+
+        private readonly SignInManager<IdentityUser> _sim;
+
+        private readonly UserManager<IdentityUser> _um;
+
         private readonly ApplicationDbContext _context;
-        public ProductoController(ApplicationDbContext context)
+
+
+
+        public ProductoController(ApplicationDbContext context, SignInManager<IdentityUser> sim,
+         UserManager<IdentityUser> um)
         {
             _context = context;
+            _sim = sim;
+            _um = um;
         }
 
         public IActionResult Registro()
         {
-
 
             ViewBag.Categorias = _context.Categorias.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
             return View();
@@ -44,6 +49,8 @@ namespace pc3teoria.Controllers
             }
 
         }
+
+
 
 
 
